@@ -5,6 +5,7 @@ import { RouteRepository } from '../domain/route.repository';
 import { RouteStatus } from '../domain/route-status';
 import { AcceptRouteUseCase } from './accept-route.use-case';
 import { CompleteStopUseCase } from './complete-stop.use-case';
+import { FinishRouteUseCase } from './finish-route.use-case';
 import { RegisterOccurrenceUseCase } from './register-occurrence.use-case';
 import { UpdateLocationUseCase } from './update-location.use-case';
 
@@ -75,6 +76,18 @@ describe('Route workflow use cases', () => {
     const finished = await useCase.execute(saved.id, 'order-2');
 
     expect(finished.status).toBe('FINISHED');
+  });
+
+  it('finishes an in-progress route and completes pending stops', async () => {
+    const repository = new FakeRouteRepository();
+    const route = makeRoute();
+    route.accept('driver-1');
+    const saved = await repository.create(route);
+
+    const finished = await new FinishRouteUseCase(repository).execute(saved.id);
+
+    expect(finished.status).toBe('FINISHED');
+    expect(finished.stops.every((stop) => stop.status === 'COMPLETED')).toBe(true);
   });
 
   it('rejects location updates before a route is accepted', async () => {

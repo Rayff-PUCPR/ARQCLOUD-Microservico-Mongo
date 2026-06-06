@@ -3,6 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AcceptRouteUseCase } from '../application/accept-route.use-case';
 import { CompleteStopUseCase } from '../application/complete-stop.use-case';
 import { CreateRouteInput, CreateRouteUseCase } from '../application/create-route.use-case';
+import { FinishRouteUseCase } from '../application/finish-route.use-case';
 import { ListRoutesUseCase } from '../application/list-routes.use-case';
 import { RegisterOccurrenceUseCase } from '../application/register-occurrence.use-case';
 import { ResetRoutesUseCase } from '../application/reset-routes.use-case';
@@ -27,7 +28,9 @@ export class RoutesController {
     @Inject(ResetRoutesUseCase)
     private readonly resetRoutesUseCase: ResetRoutesUseCase,
     @Inject(CompleteStopUseCase)
-    private readonly completeStopUseCase: CompleteStopUseCase
+    private readonly completeStopUseCase: CompleteStopUseCase,
+    @Inject(FinishRouteUseCase)
+    private readonly finishRouteUseCase: FinishRouteUseCase
   ) {}
 
   @Post()
@@ -75,5 +78,10 @@ export class RoutesController {
   @Post(':id/stops/:orderId/complete')
   completeStop(@Param('id') id: string, @Param('orderId') orderId: string) {
     return this.completeStopUseCase.execute(id, orderId);
+  }
+
+  @Post(':id/finish')
+  finish(@Param('id') id: string) {
+    return this.finishRouteUseCase.execute(id);
   }
 }

@@ -109,6 +109,16 @@ export class DeliveryRoute {
     this.touch();
   }
 
+  finish() {
+    assertRouteStatusTransition(this.props.status, 'FINISHED');
+    this.props.stops = this.props.stops.map((stop) => ({
+      ...stop,
+      status: stop.status === 'FAILED' ? stop.status : 'COMPLETED'
+    }));
+    this.props.status = 'FINISHED';
+    this.touch();
+  }
+
   private touch() {
     this.props.updatedAt = new Date().toISOString();
   }

@@ -3,6 +3,7 @@ import { getPersistenceDriver } from '../config/app.config';
 import { AcceptRouteUseCase } from './application/accept-route.use-case';
 import { CompleteStopUseCase } from './application/complete-stop.use-case';
 import { CreateRouteUseCase } from './application/create-route.use-case';
+import { FinishRouteUseCase } from './application/finish-route.use-case';
 import { ListRoutesUseCase } from './application/list-routes.use-case';
 import { RegisterOccurrenceUseCase } from './application/register-occurrence.use-case';
 import { ResetRoutesUseCase } from './application/reset-routes.use-case';
@@ -22,6 +23,7 @@ import { RoutesController } from './api/routes.controller';
     RegisterOccurrenceUseCase,
     ResetRoutesUseCase,
     CompleteStopUseCase,
+    FinishRouteUseCase,
     InMemoryRouteRepository,
     MongoRouteRepository,
     {
