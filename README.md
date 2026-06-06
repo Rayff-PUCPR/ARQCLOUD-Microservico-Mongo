@@ -93,3 +93,25 @@ Para rodar os testes:
 ```bash
 npm test
 ```
+
+## Docker
+
+Build local da imagem:
+
+```bash
+docker build -t rotacerta-microservico-mongo:v1 .
+```
+
+Execucao local em container usando as variaveis do arquivo `.env`:
+
+```bash
+docker run --rm -p 3002:3002 --env-file .env rotacerta-microservico-mongo:v1
+```
+
+Publicacao no Docker Hub:
+
+```bash
+docker login
+docker build -t <usuario-dockerhub>/rotacerta-microservico-mongo:v1 .
+docker push <usuario-dockerhub>/rotacerta-microservico-mongo:v1
+```
