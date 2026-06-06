@@ -112,6 +112,6 @@ Publicacao no Docker Hub:
 
 ```bash
 docker login
-docker build -t <usuario-dockerhub>/rotacerta-microservico-mongo:v1 .
-docker push <usuario-dockerhub>/rotacerta-microservico-mongo:v1
+docker build -t rayff/rotacerta-microservico-mongo:v1 .
+docker push rayff/rotacerta-microservico-mongo:v1
 ```
